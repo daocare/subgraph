@@ -1,0 +1,44 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: kovan
+    source:
+      address: "0x51D54A877923467BD0ef0b4e3930c0F27e49e738"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - DepositAdded
+        - DepositWithdrawn
+        - EmergencyStateReached
+        - EmergencyVote
+        - EmergencyWithdrawl
+        - ProposalAdded
+        - ProposalWithdrawn
+        - RemoveEmergencyVote
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: DepositAdded(indexed address,uint256)
+          handler: handleDepositAdded
+        - event: DepositWithdrawn(indexed address)
+          handler: handleDepositWithdrawn
+        - event: EmergencyStateReached(indexed address,uint256,uint256,uint256)
+          handler: handleEmergencyStateReached
+        - event: EmergencyVote(indexed address,uint256)
+          handler: handleEmergencyVote
+        - event: EmergencyWithdrawl(indexed address)
+          handler: handleEmergencyWithdrawl
+        - event: ProposalAdded(indexed address,indexed uint256,indexed string)
+          handler: handleProposalAdded
+        - event: ProposalWithdrawn(indexed address)
+          handler: handleProposalWithdrawn
+        - event: RemoveEmergencyVote(indexed address,uint256)
+          handler: handleRemoveEmergencyVote
+      file: ./src/mapping.ts
