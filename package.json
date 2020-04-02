@@ -4,13 +4,61 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ DAOcare/daocare_graph",
-    "create-local": "graph create --node http://localhost:8020/ DAOcare/daocare_graph",
-    "remove-local": "graph remove --node http://localhost:8020/ DAOcare/daocare_graph",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 DAOcare/daocare_graph"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ daocare/daocare_graph",
+    "create-local": "graph create --node http://localhost:8020/ daocare/daocare_graph",
+    "remove-local": "graph remove --node http://localhost:8020/ daocare/daocare_graph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 daocare/daocare_graph"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.17.1",
     "@graphprotocol/graph-ts": "0.17.0"
   }
 }
+
+
+
+  Skip migration: Bump mapping apiVersion from 0.0.1 to 0.0.2
+  Skip migration: Bump mapping apiVersion from 0.0.2 to 0.0.3
+  Skip migration: Bump mapping specVersion from 0.0.1 to 0.0.2
+✔ Apply migrations
+✔ Load subgraph from subgraph.yaml
+  Compile data source: PoolDeposits => build/PoolDeposits/PoolDeposits.wasm
+⠋ Compile subgraphWARNING AS206: Compiling constant with non-constant initializer as mutable.
+
+   const projectId = event.params.proposalId.toI32();
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ in src/poolDepositsHandlers.ts(27,8)
+
+WARNING AS206: Compiling constant with non-constant initializer as mutable.
+
+   const benefactor = event.params.benefactor;
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ in src/poolDepositsHandlers.ts(28,8)
+
+✔ Compile subgraph
+  Copy subgraph file build/schema.graphql
+  Write subgraph file build/PoolDeposits/abis/PoolDeposits.json
+  Write subgraph file build/NoLossDao/abis/NoLossDao.json
+  Write subgraph manifest build/subgraph.yaml
+✔ Write compiled subgraph to build/
+  Add file to IPFS build/schema.graphql
+                .. QmVyWxJFdsqc2JN3dWExWWPLPVZFXQVHuRhrTr3ToRrqpy
+  Add file to IPFS build/PoolDeposits/abis/PoolDeposits.json
+                .. Qmefcc1eyJ4tcFrWLmHjaNAXQf1FvH9LSvtfNRP7ts7b87
+  Add file to IPFS build/NoLossDao/abis/NoLossDao.json
+                .. QmXdpQiUbfpFEBnNbmSn6bF1aDJmeRTmAoAitDbR3NF1Si
+  Add file to IPFS build/PoolDeposits/PoolDeposits.wasm
+                .. QmYAwZt1ekatNCtBmTyYFzFvkQvrU31uPf8EAJozV24ZvD
+  Add file to IPFS build/NoLossDao/NoLossDao.wasm
+                .. QmYBNt8TD1hHDDnDqz9qfU24SHJhKB1rHSnJNKnuyCK7yc
+✔ Upload subgraph to IPFS
+
+Build completed: QmeNchBJcNs1o4jwWf466zqNLxpdRxkDfXQM7e897jBW2P
+
+Deployed to https://thegraph.com/explorer/subgraph/daocare/daocare_graph
+
+Subgraph endpoints:
+Queries (HTTP):     https://api.thegraph.com/subgraphs/name/daocare/daocare_graph
+Subscriptions (WS): wss://api.thegraph.com/subgraphs/name/daocare/daocare_graph
+
+Done in 16.94s.

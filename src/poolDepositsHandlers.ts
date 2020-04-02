@@ -1,6 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts";
 import {
-  Contract,
   DepositAdded,
   DepositWithdrawn,
   EmergencyStateReached,
@@ -10,7 +8,7 @@ import {
   ProposalWithdrawn,
   RemoveEmergencyVote
 } from "../generated/PoolDeposits/PoolDeposits";
-import {} from "../generated/schema";
+import { Project } from "../generated/schema";
 
 export function handleDepositAdded(event: DepositAdded): void {}
 
@@ -24,7 +22,22 @@ export function handleEmergencyVote(event: EmergencyVote): void {}
 
 export function handleEmergencyWithdrawl(event: EmergencyWithdrawl): void {}
 
-export function handleProposalAdded(event: ProposalAdded): void {}
+export function handleProposalAdded(event: ProposalAdded): void {
+  // Load Variables
+  const projectId = event.params.proposalId.toI32();
+  const benefactor = event.params.benefactor;
+  // TODO: investigate this `toString`, didn't check what it does.
+  const projectDataIdentifier = event.params.proposalHash.toString();
+
+  // Perform logic and updates
+  let newProject = new Project(projectId.toString());
+  newProject.projectId = projectId;
+  newProject.benefactor = benefactor;
+  newProject.projectDataIdentifier = projectDataIdentifier;
+
+  // Save results
+  newProject.save();
+}
 
 export function handleProposalWithdrawn(event: ProposalWithdrawn): void {}
 
