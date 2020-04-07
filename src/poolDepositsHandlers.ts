@@ -42,3 +42,5 @@ export function handleProposalAdded(event: ProposalAdded): void {
 export function handleProposalWithdrawn(event: ProposalWithdrawn): void {}
 
 export function handleRemoveEmergencyVote(event: RemoveEmergencyVote): void {}
+
+// https://gitter.im/kovan-testnet/faucet 0xd3Cbce59318B2E570883719c8165F9390A12BdD6

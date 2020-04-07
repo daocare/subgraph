@@ -1,16 +1,19 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "daiAddress", "type": "address" },
-      { "internalType": "address", "name": "aDaiAddress", "type": "address" },
       {
         "internalType": "address",
-        "name": "aavePoolAddress",
+        "name": "daiAddress",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "aavePoolCoreAddress",
+        "name": "aDaiAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "lendingPoolAddressProvider",
         "type": "address"
       },
       {
@@ -139,7 +142,7 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "string",
         "name": "proposalHash",
         "type": "string"
@@ -199,7 +202,13 @@
     "constant": true,
     "inputs": [],
     "name": "aaveLendingContractCore",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -209,7 +218,11 @@
     "inputs": [],
     "name": "adaiContract",
     "outputs": [
-      { "internalType": "contract IADai", "name": "", "type": "address" }
+      {
+        "internalType": "contract IADai",
+        "name": "",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "view",
@@ -219,7 +232,13 @@
     "constant": true,
     "inputs": [],
     "name": "admin",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -229,7 +248,11 @@
     "inputs": [],
     "name": "daiContract",
     "outputs": [
-      { "internalType": "contract IERC20", "name": "", "type": "address" }
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "view",
@@ -237,9 +260,21 @@
   },
   {
     "constant": true,
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "depositedDai",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -248,16 +283,34 @@
     "constant": true,
     "inputs": [],
     "name": "emergencyVoteAmount",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": true,
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "emergencyVoted",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -266,7 +319,13 @@
     "constant": true,
     "inputs": [],
     "name": "isEmergencyState",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -276,7 +335,11 @@
     "inputs": [],
     "name": "noLossDaoContract",
     "outputs": [
-      { "internalType": "contract INoLossDao", "name": "", "type": "address" }
+      {
+        "internalType": "contract INoLossDao",
+        "name": "",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "view",
@@ -286,16 +349,49 @@
     "constant": true,
     "inputs": [],
     "name": "proposalAmount",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": true,
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [],
+    "name": "provider",
+    "outputs": [
+      {
+        "internalType": "contract ILendingPoolAddressesProvider",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "timeJoined",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -304,7 +400,13 @@
     "constant": true,
     "inputs": [],
     "name": "totalDepositedDai",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -312,7 +414,11 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
     ],
     "name": "deposit",
     "outputs": [],
@@ -332,11 +438,19 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "string", "name": "proposalHash", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "proposalHash",
+        "type": "string"
+      }
     ],
     "name": "createProposal",
     "outputs": [
-      { "internalType": "uint256", "name": "newProposalId", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "newProposalId",
+        "type": "uint256"
+      }
     ],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -354,7 +468,11 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "_winner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_winner",
+        "type": "address"
+      }
     ],
     "name": "redirectInterestStreamToWinner",
     "outputs": [],

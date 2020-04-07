@@ -8,6 +8,6 @@ type Project @entity {
 type Iteration @entity {
   id: ID!
   iterationId: Int!
-  miner: Bytes
+  miner: Bytes!
   topProject: Project
 }

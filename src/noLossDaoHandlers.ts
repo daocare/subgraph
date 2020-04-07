@@ -6,29 +6,45 @@ import {
   VotedViaProxy
 } from "../generated/NoLossDao/NoLossDao";
 import { Iteration, Project } from "../generated/schema";
+import { log } from "@graphprotocol/graph-ts";
 
 export function handleIterationChanged(event: IterationChanged): void {
-  // TODO: @JonJon - this doesn't include the iteration id. It makes it more difficult to deal with.
+    // Load Variables
+  const nextIterationId = event.params.newIterationId.toI32();
+  const miner = event.params.miner.toI32();
+  
+  // Perform logic and updates
+  const newIteration = new Iteration(nextIterationId.toString());
+  newIteration.iterationId = nextIterationId;
+  newIteration.miner = miner;
+
+  // Save results
+  newIteration.save();
 }
+
+
+
+// event IterationWinner(
+//   uint256 indexed propsalIteration,
+//   address indexed winner,
+//   uint256 indexed projectId
+// );
 
 export function handleIterationWinner(event: IterationWinner): void {
   // Load Variables
   const iterationId = event.params.propsalIteration.toI32();
-  const nextIterationId = iterationId + 1;
   const topProject = event.params.projectId.toString();
-  // @JonJon, I don't think the "winner" parameter of this event is needed. It is directly linked to the projectId.
 
   // Perform logic and updates
   const previousIteration = Iteration.load(iterationId.toString());
+  if (previousIteration != null) {
+    log.critical("Critical - THIS SHOULD NOT HAPPEN, iteration #{} doesn't exist even though it should.", [iterationId.teString()])
+  }
   previousIteration.topProject = topProject;
-
-  // NOTE: this should typically go in: `handleIterationChanged`; but currently no id exists in that event.
-  const newIteration = new Iteration(nextIterationId.toString());
-  newIteration.iterationId = nextIterationId;
-
+  
   // Save results
   previousIteration.save();
-  newIteration.save();
+  
 }
 
 export function handleVoteDelegated(event: VoteDelegated): void {}
