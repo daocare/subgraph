@@ -3,16 +3,16 @@ import {
   IterationWinner,
   VoteDelegated,
   VotedDirect,
-  VotedViaProxy
+  VotedViaProxy,
 } from "../generated/NoLossDao/NoLossDao";
 import { Iteration, Project } from "../generated/schema";
 import { log } from "@graphprotocol/graph-ts";
 
 export function handleIterationChanged(event: IterationChanged): void {
-    // Load Variables
+  // Load Variables
   const nextIterationId = event.params.newIterationId.toI32();
   const miner = event.params.miner.toI32();
-  
+
   // Perform logic and updates
   const newIteration = new Iteration(nextIterationId.toString());
   newIteration.iterationId = nextIterationId;
@@ -21,8 +21,6 @@ export function handleIterationChanged(event: IterationChanged): void {
   // Save results
   newIteration.save();
 }
-
-
 
 // event IterationWinner(
 //   uint256 indexed propsalIteration,
@@ -38,13 +36,15 @@ export function handleIterationWinner(event: IterationWinner): void {
   // Perform logic and updates
   const previousIteration = Iteration.load(iterationId.toString());
   if (previousIteration != null) {
-    log.critical("Critical - THIS SHOULD NOT HAPPEN, iteration #{} doesn't exist even though it should.", [iterationId.teString()])
+    log.critical(
+      "Critical - THIS SHOULD NOT HAPPEN, iteration #{} doesn't exist even though it should.",
+      [iterationId.teString()]
+    );
   }
   previousIteration.topProject = topProject;
-  
+
   // Save results
   previousIteration.save();
-  
 }
 
 export function handleVoteDelegated(event: VoteDelegated): void {}

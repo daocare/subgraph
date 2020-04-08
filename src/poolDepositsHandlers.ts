@@ -24,10 +24,10 @@ export function handleEmergencyWithdrawl(event: EmergencyWithdrawl): void {}
 
 export function handleProposalAdded(event: ProposalAdded): void {
   // Load Variables
-  const projectId = event.params.proposalId.toI32();
-  const benefactor = event.params.benefactor;
+  let projectId = event.params.proposalId.toI32();
+  let benefactor = event.params.benefactor;
   // TODO: investigate this `toString`, didn't check what it does.
-  const projectDataIdentifier = event.params.proposalHash.toString();
+  let projectDataIdentifier = event.params.proposalHash.toString();
 
   // Perform logic and updates
   let newProject = new Project(projectId.toString());
