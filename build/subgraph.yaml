@@ -2,7 +2,7 @@ specVersion: 0.0.2
 schema:
   file: schema.graphql
 dataSources:
-  - kind: ethereum/PoolDeposits
+  - kind: ethereum/contract
     name: PoolDeposits
     network: kovan
     source:
@@ -42,7 +42,7 @@ dataSources:
         - event: RemoveEmergencyVote(indexed address,uint256)
           handler: handleRemoveEmergencyVote
       file: PoolDeposits/PoolDeposits.wasm
-  - kind: ethereum/NoLossDao
+  - kind: ethereum/contract
     name: NoLossDao
     network: kovan
     source:

@@ -13,17 +13,17 @@ export function handleIterationChanged(event: IterationChanged): void {
 
 export function handleIterationWinner(event: IterationWinner): void {
   // Load Variables
-  const iterationId = event.params.propsalIteration.toI32();
-  const nextIterationId = iterationId + 1;
-  const topProject = event.params.projectId.toString();
+  let iterationId = event.params.propsalIteration.toI32();
+  let nextIterationId = iterationId + 1;
+  let topProject = event.params.projectId.toString();
   // @JonJon, I don't think the "winner" parameter of this event is needed. It is directly linked to the projectId.
 
   // Perform logic and updates
-  const previousIteration = Iteration.load(iterationId.toString());
+  let previousIteration = Iteration.load(iterationId.toString());
   previousIteration.topProject = topProject;
 
   // NOTE: this should typically go in: `handleIterationChanged`; but currently no id exists in that event.
-  const newIteration = new Iteration(nextIterationId.toString());
+  let newIteration = new Iteration(nextIterationId.toString());
   newIteration.iterationId = nextIterationId;
 
   // Save results
