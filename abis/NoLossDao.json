@@ -740,26 +740,30 @@
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 58,
-        "literals": [
-          "solidity",
-          "0.5",
-          ".15"
-        ],
-        "nodeType": "PragmaDirective",
-        "src": "0:23:1"
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "newIterationId",
+        "type": "uint256"
       },
       {
-        "absolutePath": "/Users/jonjon/Code/daocare/app/contracts/contracts/interfaces/IAaveLendingPool.sol",
-        "file": "./interfaces/IAaveLendingPool.sol",
-        "id": 59,
-        "nodeType": "ImportDirective",
-        "scope": 984,
-        "sourceUnit": 1796,
-        "src": "62:43:1",
-        "symbolAliases": [],
-        "unitAlias": ""
+        "indexed": false,
+        "internalType": "address",
+        "name": "miner",
+        "type": "address"
       },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "timeStamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "IterationChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
       {
         "absolutePath": "/Users/jonjon/Code/daocare/app/contracts/contracts/interfaces/IADai.sol",
         "file": "./interfaces/IADai.sol",
@@ -12393,38 +12397,307 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/jonjon/Code/daocare/app/contracts/contracts/interfaces/IPoolDeposits.sol",
-        "file": "./interfaces/IPoolDeposits.sol",
-        "id": 61,
-        "nodeType": "ImportDirective",
-        "scope": 984,
-        "sourceUnit": 1927,
-        "src": "139:40:1",
-        "symbolAliases": [],
-        "unitAlias": ""
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "proposalId",
+        "type": "uint256"
+      }
+    ],
+    "name": "VotedViaProxy",
+    "type": "event"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "admin",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "benefactorsProposal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "depositContract",
+    "outputs": [
+      {
+        "internalType": "contract IPoolDeposits",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "iterationJoined",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "proposalDeadline",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "proposalDetails",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "proposalId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "proposalIteration",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "proposalOwner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       },
       {
-        "absolutePath": "@nomiclabs/buidler/console.sol",
-        "file": "@nomiclabs/buidler/console.sol",
-        "id": 62,
-        "nodeType": "ImportDirective",
-        "scope": 984,
-        "sourceUnit": 12317,
-        "src": "180:40:1",
-        "symbolAliases": [],
-        "unitAlias": ""
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "proposalVotes",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "state",
+    "outputs": [
+      {
+        "internalType": "enum NoLossDao_v0.ProposalState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "topProject",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       },
       {
-        "absolutePath": "@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol",
-        "file": "@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol",
-        "id": 63,
-        "nodeType": "ImportDirective",
-        "scope": 984,
-        "sourceUnit": 12504,
-        "src": "221:78:1",
-        "symbolAliases": [],
-        "unitAlias": ""
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "usersNominatedProject",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "voteDelegations",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "votingInterval",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
         "absolutePath": "@openzeppelin/upgrades/contracts/Initializable.sol",
         "file": "@openzeppelin/upgrades/contracts/Initializable.sol",
@@ -23971,90 +24244,88 @@
     ],
     "src": "0:15762:1"
   },
-  "compiler": {
-    "name": "solc",
-    "version": "0.5.15+commit.6a57276f.Emscripten.clang"
-  },
-  "networks": {
-    "42": {
-      "links": {},
-      "events": {},
-      "address": "0x1Be540722F30fBb6A86f995F25A81f5BA5ac4327",
-      "updated_at": 1585689041652
-    }
-  },
-  "schemaVersion": "3.0.11",
-  "updatedAt": "2020-04-19T18:42:28.628Z",
-  "devdoc": {
-    "methods": {
-      "changeProposalStakingAmount(uint256)": {
-        "details": "Changes the amount required to stake for new proposal",
-        "params": {
-          "amount": "how much new amount is."
-        }
-      },
-      "changeVotingInterval(uint256)": {
-        "details": "Changes the time iteration  between intervals",
-        "params": {
-          "newInterval": "new time interval between interations"
-        }
-      },
-      "delegateVoting(address)": {
-        "details": "Allows user to delegate their full voting power to another user",
-        "params": {
-          "delegatedAddress": "the address to which you are delegating your voting rights"
-        }
-      },
-      "distributeFunds()": {
-        "details": "Anyone can call this every 2 weeks (more specifically every *iteration interval*) to receive a reward, and increment onto the next iteration of voting"
-      },
-      "noLossCreateProposal(string,address)": {
-        "details": "Checks whether user is eligible to create a proposal then creates it. Executes a range of logic to add the new propsal (increments proposal ID, sets proposal owner, sets iteration joined, etc...)",
-        "params": {
-          "_proposalIdentifier": "Hash of the proposal text",
-          "benefactorAddress": "address of benefactor creating proposal"
-        },
-        "return": "boolean whether the above executes successfully"
-      },
-      "noLossDeposit(address)": {
-        "details": "Checks whether user is eligible deposit and sets the proposal iteration joined, to the current iteration",
-        "params": {
-          "userAddress": "address of the user wanting to deposit"
-        },
-        "return": "boolean whether the above executes successfully"
-      },
-      "noLossWithdraw(address)": {
-        "details": "Checks whether user is eligible to withdraw their deposit and sets the proposal iteration joined to zero",
-        "params": {
-          "userAddress": "address of the user wanting to withdraw"
-        },
-        "return": "boolean whether the above executes successfully"
-      },
-      "noLossWithdrawProposal(address)": {
-        "details": "Checks whether user is eligible to withdraw their proposal Sets the state of the users proposal to withdrawn resets the iteration of user joined back to 0",
-        "params": {
-          "benefactorAddress": "address of benefactor withdrawing proposal"
-        },
-        "return": "boolean whether the above is possible"
-      },
-      "setInterestReceivers(address[],uint256[])": {
-        "details": "Changes the amount required to stake for new proposal"
-      },
-      "voteDirect(uint256)": {
-        "details": "Allows user to vote for an active proposal. Once voted they cannot withdraw till next iteration.",
-        "params": {
-          "proposalIdToVoteFor": "Id of the proposal they are voting for"
-        }
-      },
-      "voteProxy(uint256,address)": {
-        "details": "Allows user proxy to vote on behalf of a user.",
-        "params": {
-          "delegatedFrom": "user they are voting on behalf of",
-          "proposalIdToVoteFor": "Id of the proposal they are voting for"
-        }
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newInterval",
+        "type": "uint256"
       }
-    },
-    "title": "No Loss Dao Contract. "
+    ],
+    "name": "changeVotingInterval",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      }
+    ],
+    "name": "noLossDeposit",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      }
+    ],
+    "name": "noLossWithdraw",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "proposalHash",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "benefactorAddress",
+        "type": "address"
+      }
+    ],
+    "name": "noLossCreateProposal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "newProposalId",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   "userdoc": {
     "methods": {
@@ -24073,6 +24344,91 @@
       "noLossDeposit(address)": {
         "notice": "///////////////////////////////////////////////////////////////////////////////////////////////////////////// //// Deposit & withdraw function for users ////////// /////and proposal holders (benefactors) ///////////// /////////////////////////////////////////////////////"
       }
-    }
+    ],
+    "name": "noLossWithdrawProposal",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "delegatedAddress",
+        "type": "address"
+      }
+    ],
+    "name": "delegateVoting",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "proposalIdToVoteFor",
+        "type": "uint256"
+      }
+    ],
+    "name": "voteDirect",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "proposalIdToVoteFor",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "delegatedFrom",
+        "type": "address"
+      }
+    ],
+    "name": "voteProxy",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "distributeFunds",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "redirectTo",
+        "type": "address"
+      }
+    ],
+    "name": "daoCareFunding",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
 }
