@@ -2,7 +2,7 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum/PoolDeposits
+  - kind: ethereum/contract
     name: PoolDeposits
     network: kovan
     source:
@@ -35,15 +35,15 @@ dataSources:
           handler: handleEmergencyVote
         - event: EmergencyWithdrawl(indexed address)
           handler: handleEmergencyWithdrawl
-        - event: ProposalAdded(indexed address,indexed uint256,indexed string)
-          handler: handleProposalAdded
+        # - event: ProposalAdded(indexed address,indexed uint256,indexed string)
+        #   handler: handleProposalAdded
         - event: ProposalWithdrawn(indexed address)
           handler: handleProposalWithdrawn
         - event: RemoveEmergencyVote(indexed address,uint256)
           handler: handleRemoveEmergencyVote
       file: ./src/poolDepositsHandlers.ts
 
-  - kind: ethereum/NoLossDao
+  - kind: ethereum/contract
     name: NoLossDao
     network: kovan
     source:
@@ -63,7 +63,7 @@ dataSources:
         - name: NoLossDao
           file: ./abis/NoLossDao.json
       eventHandlers:
-        - event: IterationChanged(uint256,address)
+        - event: IterationChanged(indexed uint256,address,uint256)
           handler: handleIterationChanged
         - event: IterationWinner(indexed uint256,indexed address,indexed uint256)
           handler: handleIterationWinner

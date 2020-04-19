@@ -3,21 +3,9 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "address[]",
-        "name": "addresses",
-        "type": "address[]"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256[]",
-        "name": "percentages",
-        "type": "uint256[]"
-      },
-      {
-        "indexed": false,
+        "indexed": true,
         "internalType": "uint256",
-        "name": "iteration",
+        "name": "newIterationId",
         "type": "uint256"
       }
     ],
@@ -301,13 +289,19 @@
   },
   {
     "constant": true,
-    "inputs": [],
-    "name": "proposalId",
-    "outputs": [
+    "inputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "name": "proposalDetails",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "payable": false,
@@ -316,19 +310,13 @@
   },
   {
     "constant": true,
-    "inputs": [
+    "inputs": [],
+    "name": "proposalId",
+    "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "name": "proposalIdentifier",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
       }
     ],
     "payable": false,
@@ -540,9 +528,9 @@
     "constant": false,
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
       }
     ],
     "name": "changeProposalStakingAmount",
@@ -618,7 +606,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "_proposalIdentifier",
+        "name": "proposalHash",
         "type": "string"
       },
       {
@@ -714,6 +702,21 @@
     "constant": false,
     "inputs": [],
     "name": "distributeFunds",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "redirectTo",
+        "type": "address"
+      }
+    ],
+    "name": "daoCareFunding",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",

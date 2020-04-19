@@ -8,6 +8,7 @@ import {
   ProposalWithdrawn,
   RemoveEmergencyVote,
 } from "../generated/PoolDeposits/PoolDeposits";
+import { log } from "@graphprotocol/graph-ts";
 import { Project } from "../generated/schema";
 
 export function handleDepositAdded(event: DepositAdded): void {}
@@ -24,8 +25,8 @@ export function handleEmergencyWithdrawl(event: EmergencyWithdrawl): void {}
 
 export function handleProposalAdded(event: ProposalAdded): void {
   // Load Variables
-  const projectId = event.params.proposalId.toI32();
-  const benefactor = event.params.benefactor;
+  let projectId = event.params.proposalId.toI32();
+  let benefactor = event.params.benefactor;
   // TODO: investigate this `toString`, didn't check what it does.
   const projectDataIdentifier = event.params.proposalIdentifier.toString();
 
@@ -42,3 +43,5 @@ export function handleProposalAdded(event: ProposalAdded): void {
 export function handleProposalWithdrawn(event: ProposalWithdrawn): void {}
 
 export function handleRemoveEmergencyVote(event: RemoveEmergencyVote): void {}
+
+// https://gitter.im/kovan-testnet/faucet 0xd3Cbce59318B2E570883719c8165F9390A12BdD6
