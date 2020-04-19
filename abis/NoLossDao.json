@@ -3,6 +3,31 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "address[]",
+        "name": "addresses",
+        "type": "address[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "percentages",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "iteration",
+        "type": "uint256"
+      }
+    ],
+    "name": "InterestConfigChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "uint256",
         "name": "newIterationId",
@@ -289,19 +314,13 @@
   },
   {
     "constant": true,
-    "inputs": [
+    "inputs": [],
+    "name": "proposalId",
+    "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "name": "proposalDetails",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
       }
     ],
     "payable": false,
@@ -310,13 +329,19 @@
   },
   {
     "constant": true,
-    "inputs": [],
-    "name": "proposalId",
-    "outputs": [
+    "inputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "name": "proposalIdentifier",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "payable": false,
@@ -528,6 +553,41 @@
     "constant": false,
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "changeProposalStakingAmount",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_interestReceivers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_percentages",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "setInterestReceivers",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
         "internalType": "address",
         "name": "userAddress",
         "type": "address"
@@ -606,7 +666,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "proposalHash",
+        "name": "_proposalIdentifier",
         "type": "string"
       },
       {
@@ -702,21 +762,6 @@
     "constant": false,
     "inputs": [],
     "name": "distributeFunds",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "redirectTo",
-        "type": "address"
-      }
-    ],
-    "name": "daoCareFunding",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
