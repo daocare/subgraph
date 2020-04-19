@@ -13,12 +13,7 @@
       },
       {
         "internalType": "address",
-        "name": "aavePoolAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "aavePoolCoreAddress",
+        "name": "lendingPoolAddressProvider",
         "type": "address"
       },
       {
@@ -137,6 +132,31 @@
       {
         "indexed": true,
         "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "iteration",
+        "type": "uint256"
+      }
+    ],
+    "name": "InterestSent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
         "name": "benefactor",
         "type": "address"
       },
@@ -147,9 +167,9 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "string",
-        "name": "proposalHash",
+        "name": "proposalIdentifier",
         "type": "string"
       }
     ],
@@ -367,6 +387,21 @@
   },
   {
     "constant": true,
+    "inputs": [],
+    "name": "provider",
+    "outputs": [
+      {
+        "internalType": "contract ILendingPoolAddressesProvider",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -410,6 +445,21 @@
         "type": "uint256"
       }
     ],
+    "name": "changeProposalAmount",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
     "name": "deposit",
     "outputs": [],
     "payable": false,
@@ -430,7 +480,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "proposalHash",
+        "name": "proposalIdentifier",
         "type": "string"
       }
     ],
@@ -459,12 +509,27 @@
     "constant": false,
     "inputs": [
       {
+        "internalType": "address[]",
+        "name": "receivers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "percentages",
+        "type": "uint256[]"
+      },
+      {
         "internalType": "address",
-        "name": "_winner",
+        "name": "winner",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "iteration",
+        "type": "uint256"
       }
     ],
-    "name": "redirectInterestStreamToWinner",
+    "name": "distributeInterest",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",

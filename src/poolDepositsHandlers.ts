@@ -6,7 +6,7 @@ import {
   EmergencyWithdrawl,
   ProposalAdded,
   ProposalWithdrawn,
-  RemoveEmergencyVote
+  RemoveEmergencyVote,
 } from "../generated/PoolDeposits/PoolDeposits";
 import { Project } from "../generated/schema";
 
@@ -27,7 +27,7 @@ export function handleProposalAdded(event: ProposalAdded): void {
   const projectId = event.params.proposalId.toI32();
   const benefactor = event.params.benefactor;
   // TODO: investigate this `toString`, didn't check what it does.
-  const projectDataIdentifier = event.params.proposalHash.toString();
+  const projectDataIdentifier = event.params.proposalIdentifier.toString();
 
   // Perform logic and updates
   let newProject = new Project(projectId.toString());
