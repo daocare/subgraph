@@ -10,11 +10,11 @@ import { log } from "@graphprotocol/graph-ts";
 
 export function handleIterationChanged(event: IterationChanged): void {
   // Load Variables
-  const nextIterationId = event.params.newIterationId.toI32();
-  const miner = event.params.miner.toI32();
+  let nextIterationId = event.params.newIterationId.toI32();
+  let miner = event.params.miner;
 
   // Perform logic and updates
-  const newIteration = new Iteration(nextIterationId.toString());
+  let newIteration = new Iteration(nextIterationId.toString());
   newIteration.iterationId = nextIterationId;
   newIteration.miner = miner;
 
@@ -22,23 +22,17 @@ export function handleIterationChanged(event: IterationChanged): void {
   newIteration.save();
 }
 
-// event IterationWinner(
-//   uint256 indexed propsalIteration,
-//   address indexed winner,
-//   uint256 indexed projectId
-// );
-
 export function handleIterationWinner(event: IterationWinner): void {
   // Load Variables
-  const iterationId = event.params.propsalIteration.toI32();
-  const topProject = event.params.projectId.toString();
+  let iterationId = event.params.propsalIteration.toI32();
+  let topProject = event.params.projectId.toString();
 
   // Perform logic and updates
-  const previousIteration = Iteration.load(iterationId.toString());
+  let previousIteration = Iteration.load(iterationId.toString());
   if (previousIteration != null) {
     log.critical(
       "Critical - THIS SHOULD NOT HAPPEN, iteration #{} doesn't exist even though it should.",
-      [iterationId.teString()]
+      [iterationId.toString()]
     );
   }
   previousIteration.topProject = topProject;

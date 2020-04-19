@@ -35,8 +35,8 @@ dataSources:
           handler: handleEmergencyVote
         - event: EmergencyWithdrawl(indexed address)
           handler: handleEmergencyWithdrawl
-        - event: ProposalAdded(indexed address,indexed uint256,indexed string)
-          handler: handleProposalAdded
+        # - event: ProposalAdded(indexed address,indexed uint256,indexed string)
+        #   handler: handleProposalAdded
         - event: ProposalWithdrawn(indexed address)
           handler: handleProposalWithdrawn
         - event: RemoveEmergencyVote(indexed address,uint256)
