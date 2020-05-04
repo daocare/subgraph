@@ -28,7 +28,7 @@ export function handleProposalAdded(event: ProposalAdded): void {
   let projectId = event.params.proposalId.toI32();
   let benefactor = event.params.benefactor;
   // TODO: investigate this `toString`, didn't check what it does.
-  let projectDataIdentifier = event.params.proposalHash;
+  const projectDataIdentifier = event.params.proposalIdentifier;
 
   // Perform logic and updates
   let newProject = new Project(projectId.toString());
