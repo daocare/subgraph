@@ -32,19 +32,6 @@
         "internalType": "uint256",
         "name": "newIterationId",
         "type": "uint256"
-      }
-    ],
-    "name": "InterestConfigChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "newIterationId",
-        "type": "uint256"
       },
       {
         "indexed": false,
@@ -556,41 +543,6 @@
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
-      }
-    ],
-    "name": "changeProposalStakingAmount",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "address[]",
-        "name": "_interestReceivers",
-        "type": "address[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "_percentages",
-        "type": "uint256[]"
-      }
-    ],
-    "name": "setInterestReceivers",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "userAddress",
-        "type": "address"
       }
     ],
     "name": "changeProposalStakingAmount",

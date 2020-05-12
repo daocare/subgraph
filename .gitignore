@@ -2,3 +2,4 @@ node_modules
 generated
 *-error.log
 build
+yarn-error.log

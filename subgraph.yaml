@@ -6,7 +6,7 @@ dataSources:
     name: PoolDeposits
     network: kovan
     source:
-      address: "0x0b63dC71788f7fD8C786CAb9A53C54beFa64817e"
+      address: "0xADcF68200F7e764712dB0C2C8ae2611a20A5E0A0"
       abi: PoolDeposits
     mapping:
       kind: ethereum/events
@@ -35,8 +35,8 @@ dataSources:
           handler: handleEmergencyVote
         - event: EmergencyWithdrawl(indexed address)
           handler: handleEmergencyWithdrawl
-        # - event: ProposalAdded(indexed address,indexed uint256,indexed string)
-        #   handler: handleProposalAdded
+        - event: ProposalAdded(indexed address,indexed uint256,string)
+          handler: handleProposalAdded
         - event: ProposalWithdrawn(indexed address)
           handler: handleProposalWithdrawn
         - event: RemoveEmergencyVote(indexed address,uint256)
@@ -47,7 +47,7 @@ dataSources:
     name: NoLossDao
     network: kovan
     source:
-      address: "0x70A1785d1798c138bF8b178106D95033Cd2B62e4"
+      address: "0x79C01883AF4A05Cc3e33E4Fa0F294032B88b2dd7"
       abi: NoLossDao
     mapping:
       kind: ethereum/events
@@ -59,6 +59,9 @@ dataSources:
         - VoteDelegated
         - VotedDirect
         - VotedViaProxy
+        - ProposalActive
+        - ProposalCooldown
+        - ProposalWithdrawn
       abis:
         - name: NoLossDao
           file: ./abis/NoLossDao.json
@@ -73,4 +76,10 @@ dataSources:
           handler: handleVotedDirect
         - event: VotedViaProxy(indexed address,address,indexed uint256,indexed uint256)
           handler: handleVotedViaProxy
+        - event: ProposalActive(indexed uint256,address,uint256)
+          handler: handleProposalActive
+        - event: ProposalCooldown(indexed uint256,uint256)
+          handler: handleProposalCooldown
+        - event: ProposalWithdrawn(indexed uint256,uint256)
+          handler: handleProposalWithdrawn
       file: ./src/noLossDaoHandlers.ts
