@@ -1,13 +1,40 @@
 type Project @entity {
   id: ID!
-  projectId: Int!
   benefactor: Bytes!
   projectDataIdentifier: String!
+  projectState: String!
+  projectVoteResults: [VoteStatus!]
+}
+
+type User @entity {
+  id: ID!
+  amount: BigInt!
+  timeJoined: BigInt!
+  votes: [Vote!]
+}
+
+type VoteStatus @entity {
+  id: ID! # <iteration>-<projectId>
+  projectVote: BigInt!
+}
+
+type Vote @entity {
+  id: ID! # <iteration>-<projectId>-<address>
+  voteAmount: BigInt!
+  voter: User!
 }
 
 type Iteration @entity {
-  id: ID!
-  iterationId: Int!
-  miner: Bytes!
-  topProject: Project
+  id: ID! # the iteration number
+  projectVoteTallies: [VoteStatus!]
+  individualVotes: [Vote!]
+  totalVotes: BigInt!
+  winningProposal: BigInt!
+  fundsDistributed: BigInt!
+  winningVotes: BigInt!
+}
+type VoteManager @entity {
+  id: ID! # this should be a singleton. Give it a constant id of "VOTE_MANAGER"
+  currentIteration: Iteration!
+  latestCompleteIteration: Iteration
 }

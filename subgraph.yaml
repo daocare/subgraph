@@ -6,7 +6,7 @@ dataSources:
     name: PoolDeposits
     network: kovan
     source:
-      address: "0xADcF68200F7e764712dB0C2C8ae2611a20A5E0A0"
+      address: "0x6253EC82F65D07b70aB433Ff2EA2333d98fdd7Eb"
       abi: PoolDeposits
     mapping:
       kind: ethereum/events
@@ -47,7 +47,7 @@ dataSources:
     name: NoLossDao
     network: kovan
     source:
-      address: "0x79C01883AF4A05Cc3e33E4Fa0F294032B88b2dd7"
+      address: "0x5D75954d85DD51b58CCC75006358E9600BF6d97f"
       abi: NoLossDao
     mapping:
       kind: ethereum/events
