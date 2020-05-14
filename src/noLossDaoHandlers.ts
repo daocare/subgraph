@@ -14,6 +14,7 @@ import {
   VoteManager,
   User,
   Vote,
+  VoteStatus,
 } from "../generated/schema";
 import { BigInt, log } from "@graphprotocol/graph-ts";
 import { VOTES_MANAGER_ENTITY_ID } from "./constants";
@@ -88,6 +89,7 @@ export function handleVotedDirect(event: VotedDirect): void {
 
   let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
   let iterationNo = voteManager.currentIteration;
+  let voteStatusId = iterationNo + "-" + proposalId.toString();
   let uniqueVoteId =
     iterationNo + "-" + proposalId.toString() + "-" + voter.toHexString();
 
@@ -104,6 +106,20 @@ export function handleVotedDirect(event: VotedDirect): void {
     uniqueVoteId,
   ]);
 
+  let voteStatus = VoteStatus.load(voteStatusId);
+  if (voteStatus == null) {
+    voteStatus = new VoteStatus(voteStatusId);
+    voteStatus.projectVote = user.amount;
+    currentIteration.projectVoteTallies = currentIteration.projectVoteTallies.concat(
+      [voteStatusId]
+    );
+  } else {
+    voteStatus.projectVote = voteStatus.projectVote.plus(user.amount);
+  }
+
+  currentIteration.totalVotes = currentIteration.totalVotes.plus(user.amount);
+
+  voteStatus.save();
   newVote.save();
   user.save();
   currentIteration.save();
