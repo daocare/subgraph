@@ -19,14 +19,23 @@ export function handleDepositAdded(event: DepositAdded): void {
   let user = User.load(userAddress);
   if (user == null) {
     user = new User(userAddress);
-    user.timeJoined = BigInt.fromI32(0); // Set this equal to now timestamp
+    user.timeJoined = BigInt.fromI32(0);
     user.votes = [];
   }
+  //user.timeJoined = user.timeJoined.concat([BigInt.fromI32(Date.now())]); // Set this equal to now timestamp
+  //user.timeJoined = user.timeJoined.concat([BigInt.fromI32(0)]); // Set this equal to now timestamp
   user.amount = amountDeposit;
   user.save();
 }
 
-export function handleDepositWithdrawn(event: DepositWithdrawn): void {}
+export function handleDepositWithdrawn(event: DepositWithdrawn): void {
+  // let userAddress = event.params.user.toHexString();
+  // let user = User.load(userAddress);
+  // user.amount = BigInt.fromI32(0);
+  // //user.timeJoined = user.timeJoined.concat(BigInt.fromI32(0));
+  // user.timeJoined = BigInt.fromI32(0);
+  // user.save();
+}
 
 export function handleProposalAdded(event: ProposalAdded): void {
   // Load Variables
@@ -46,7 +55,10 @@ export function handleProposalAdded(event: ProposalAdded): void {
   newProject.save();
 }
 
-export function handleProposalWithdrawn(event: ProposalWithdrawn): void {}
+export function handleProposalWithdrawn(event: ProposalWithdrawn): void {
+  // Nothing really needs to be done here. There is another proposalWithdrawn event in the other
+  // contract which should set the projectState to Withdrawn.
+}
 
 // Will leave these blank.
 export function handleEmergencyStateReached(
