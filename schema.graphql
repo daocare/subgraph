@@ -9,8 +9,8 @@ type Project @entity {
 type User @entity {
   id: ID!
   amount: BigInt!
-  #timeJoined: [BigInt!]! # so we can see a history of when they joined and left and if they joined again
-  timeJoined: BigInt!
+  timeJoined: [BigInt!]! # so we can see a history of when they joined and left and if they joined again
+  #timeJoined: BigInt!
   votes: [Vote!]
 }
 
@@ -23,6 +23,7 @@ type Vote @entity {
   id: ID! # <iteration>-<projectId>-<address>
   voteAmount: BigInt!
   voter: User!
+  proxyVoteAddress: Bytes
 }
 
 type Iteration @entity {

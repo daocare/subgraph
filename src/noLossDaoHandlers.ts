@@ -124,42 +124,51 @@ export function handleVotedDirect(event: VotedDirect): void {
 }
 
 export function handleVotedViaProxy(event: VotedViaProxy): void {
-  // let voter = event.params.user;
-  // let proposalId = event.params.proposalId;
-  // let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
-  // let iterationNo = voteManager.currentIteration;
-  // let voteStatusId = iterationNo + "-" + proposalId.toString();
-  // let uniqueVoteId =
-  //   iterationNo + "-" + proposalId.toString() + "-" + voter.toHexString();
-  // let currentIteration = Iteration.load(iterationNo);
-  // let user = User.load(voter.toHexString());
-  // let newVote = new Vote(uniqueVoteId);
-  // newVote.voteAmount = user.amount;
-  // newVote.voter = user.id;
-  // user.votes = user.votes.concat([uniqueVoteId]);
-  // currentIteration.individualVotes = currentIteration.individualVotes.concat([
-  //   uniqueVoteId,
-  // ]);
-  // let project = Project.load(proposalId.toString());
-  // let voteStatus = VoteStatus.load(voteStatusId);
-  // if (voteStatus == null) {
-  //   voteStatus = new VoteStatus(voteStatusId);
-  //   voteStatus.projectVote = user.amount;
-  //   currentIteration.projectVoteTallies = currentIteration.projectVoteTallies.concat(
-  //     [voteStatusId]
-  //   );
-  //   project.projectVoteResults = project.projectVoteResults.concat([
-  //     voteStatusId,
-  //   ]);
-  // } else {
-  //   voteStatus.projectVote = voteStatus.projectVote.plus(user.amount);
-  // }
-  // currentIteration.totalVotes = currentIteration.totalVotes.plus(user.amount);
-  // voteStatus.save();
-  // project.save();
-  // newVote.save();
-  // user.save();
-  // currentIteration.save();
+  let voter = event.params.user;
+  let proxy = event.params.proxy;
+  let proposalId = event.params.proposalId;
+
+  let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
+  let iterationNo = voteManager.currentIteration;
+  let voteStatusId = iterationNo + "-" + proposalId.toString();
+  let uniqueVoteId =
+    iterationNo + "-" + proposalId.toString() + "-" + voter.toHexString();
+
+  let currentIteration = Iteration.load(iterationNo);
+  let user = User.load(voter.toHexString());
+  let newVote = new Vote(uniqueVoteId);
+
+  newVote.voteAmount = user.amount;
+  newVote.voter = user.id;
+  newVote.proxyVoteAddress = proxy;
+
+  user.votes = user.votes.concat([uniqueVoteId]);
+  currentIteration.individualVotes = currentIteration.individualVotes.concat([
+    uniqueVoteId,
+  ]);
+
+  let project = Project.load(proposalId.toString());
+
+  let voteStatus = VoteStatus.load(voteStatusId);
+  if (voteStatus == null) {
+    voteStatus = new VoteStatus(voteStatusId);
+    voteStatus.projectVote = user.amount;
+    currentIteration.projectVoteTallies = currentIteration.projectVoteTallies.concat(
+      [voteStatusId]
+    );
+    project.projectVoteResults = project.projectVoteResults.concat([
+      voteStatusId,
+    ]);
+  } else {
+    voteStatus.projectVote = voteStatus.projectVote.plus(user.amount);
+  }
+  currentIteration.totalVotes = currentIteration.totalVotes.plus(user.amount);
+
+  voteStatus.save();
+  project.save();
+  newVote.save();
+  user.save();
+  currentIteration.save();
 }
 
 export function handleProposalActive(event: ProposalActive): void {

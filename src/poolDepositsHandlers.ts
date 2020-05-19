@@ -15,33 +15,34 @@ export function handleDepositAdded(event: DepositAdded): void {
   // Load Variables
   let userAddress = event.params.user.toHexString();
   let amountDeposit = event.params.amount;
+  let timeStamp = event.block.timestamp;
 
   let user = User.load(userAddress);
   if (user == null) {
     user = new User(userAddress);
-    user.timeJoined = BigInt.fromI32(0);
+    user.timeJoined = [timeStamp];
     user.votes = [];
+  } else {
+    user.timeJoined = user.timeJoined.concat([timeStamp]);
   }
-  //user.timeJoined = user.timeJoined.concat([BigInt.fromI32(Date.now())]); // Set this equal to now timestamp
-  //user.timeJoined = user.timeJoined.concat([BigInt.fromI32(0)]); // Set this equal to now timestamp
   user.amount = amountDeposit;
   user.save();
 }
 
 export function handleDepositWithdrawn(event: DepositWithdrawn): void {
-  // let userAddress = event.params.user.toHexString();
-  // let user = User.load(userAddress);
-  // user.amount = BigInt.fromI32(0);
-  // //user.timeJoined = user.timeJoined.concat(BigInt.fromI32(0));
-  // user.timeJoined = BigInt.fromI32(0);
-  // user.save();
+  let userAddress = event.params.user.toHexString();
+  let user = User.load(userAddress);
+  let timeStamp = event.block.timestamp;
+
+  user.amount = BigInt.fromI32(0);
+  user.timeJoined = user.timeJoined.concat([timeStamp]);
+  user.save();
 }
 
 export function handleProposalAdded(event: ProposalAdded): void {
   // Load Variables
   let projectId = event.params.proposalId;
   let benefactor = event.params.benefactor;
-  // TODO: investigate this `toString`, didn't check what it does.
   let projectDataIdentifier = event.params.proposalIdentifier.toString();
 
   // Perform logic and updates
