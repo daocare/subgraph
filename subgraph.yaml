@@ -41,6 +41,8 @@ dataSources:
           handler: handleProposalWithdrawn
         - event: RemoveEmergencyVote(indexed address,uint256)
           handler: handleRemoveEmergencyVote
+        - event: InterestSent(indexed address,uint256,uint256)
+          handler: handleInterestSent
       file: ./src/poolDepositsHandlers.ts
 
   - kind: ethereum/contract

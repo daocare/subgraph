@@ -32,9 +32,11 @@ export function handleIterationChanged(event: IterationChanged): void {
     iteration.winningVotes = BigInt.fromI32(0);
     iteration.projectVoteTallies = [];
     iteration.individualVotes = [];
+    iteration.interestDistribution = [];
 
     let voteManager = new VoteManager(VOTES_MANAGER_ENTITY_ID);
     voteManager.currentIteration = iteration.id;
+    voteManager.totalDeposited = BigInt.fromI32(0);
     iteration.save();
     voteManager.save();
     return;
@@ -49,6 +51,7 @@ export function handleIterationChanged(event: IterationChanged): void {
   currentIteration.winningVotes = BigInt.fromI32(0);
   currentIteration.projectVoteTallies = [];
   currentIteration.individualVotes = [];
+  currentIteration.interestDistribution = [];
   currentIteration.save();
 
   voteManager.currentIteration = currentIteration.id;

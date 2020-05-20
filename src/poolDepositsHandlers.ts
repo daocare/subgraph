@@ -7,9 +7,11 @@ import {
   ProposalAdded,
   ProposalWithdrawn,
   RemoveEmergencyVote,
+  InterestSent,
 } from "../generated/PoolDeposits/PoolDeposits";
 import { BigInt, Address, log } from "@graphprotocol/graph-ts";
-import { Project, User } from "../generated/schema";
+import { Project, User, VoteManager, Iteration } from "../generated/schema";
+import { VOTES_MANAGER_ENTITY_ID } from "./constants";
 
 export function handleDepositAdded(event: DepositAdded): void {
   // Load Variables
@@ -25,8 +27,12 @@ export function handleDepositAdded(event: DepositAdded): void {
   } else {
     user.timeJoined = user.timeJoined.concat([timeStamp]);
   }
+  let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
+  voteManager.totalDeposited = voteManager.totalDeposited.plus(amountDeposit);
+
   user.amount = amountDeposit;
   user.save();
+  voteManager.save();
 }
 
 export function handleDepositWithdrawn(event: DepositWithdrawn): void {
@@ -34,9 +40,13 @@ export function handleDepositWithdrawn(event: DepositWithdrawn): void {
   let user = User.load(userAddress);
   let timeStamp = event.block.timestamp;
 
+  let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
+  voteManager.totalDeposited = voteManager.totalDeposited.minus(user.amount);
+
   user.amount = BigInt.fromI32(0);
   user.timeJoined = user.timeJoined.concat([timeStamp]);
   user.save();
+  voteManager.save();
 }
 
 export function handleProposalAdded(event: ProposalAdded): void {
@@ -44,6 +54,8 @@ export function handleProposalAdded(event: ProposalAdded): void {
   let projectId = event.params.proposalId;
   let benefactor = event.params.benefactor;
   let projectDataIdentifier = event.params.proposalIdentifier.toString();
+
+  // handle and add to the total deposited.
 
   // Perform logic and updates
   let newProject = new Project(projectId.toString());
@@ -56,9 +68,26 @@ export function handleProposalAdded(event: ProposalAdded): void {
   newProject.save();
 }
 
+export function handleInterestSent(event: InterestSent): void {
+  // Load Variables
+  let address = event.params.user;
+  let amount = event.params.amount;
+  let iterationNo = event.params.iteration.toString();
+
+  //let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
+  let iteration = Iteration.load(iterationNo);
+
+  iteration.interestDistribution = iteration.interestDistribution.concat([
+    amount,
+  ]);
+
+  iteration.save();
+}
+
 export function handleProposalWithdrawn(event: ProposalWithdrawn): void {
   // Nothing really needs to be done here. There is another proposalWithdrawn event in the other
   // contract which should set the projectState to Withdrawn.
+  // remove deposit from total deposited here
 }
 
 // Will leave these blank.
