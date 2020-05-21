@@ -73,10 +73,6 @@ export function handleIterationWinner(event: IterationWinner): void {
 
   // Perform logic and updates
   let previousIteration = Iteration.load(voteManager.currentIteration);
-  // log.critical(
-  //   "Critical - THIS SHOULD NOT HAPPEN, iteration #{} doesn't exist even though it should.",
-  //   [iterationId.toString()]
-  // );
   previousIteration.winningProposal = topProject.toString();
   previousIteration.winningVotes = winner.projectVote;
 
@@ -181,39 +177,26 @@ export function handleVotedViaProxy(event: VotedViaProxy): void {
 export function handleProposalActive(event: ProposalActive): void {
   let projectId = event.params.proposalId;
   let project = Project.load(projectId.toString());
-  // if (project != null) {
-  //   log.critical(
-  //     "Critical - THIS SHOULD NOT HAPPEN, project #{} doesn't exist even though it should.",
-  //     [projectId.toString()]
-  //   );
-  // }
+  if (project == null) {
+    return; // this will happen on project creation. In this case, poolDeposits will handle creation
+  }
   project.projectState = "Active";
   //Failed to handle Ethereum event with handler "handleProposalActive": Mapping aborted at generated/schema.ts, line 23, column 4, with message: Cannot save Project entity without an ID, code: SubgraphSyncingFailure, id: QmZgLYsv2oEoUE3kVG21bk9w7tPTmKL5Ckg3a3ipSfeRnc
-  //project.save(); //Breaks If I try save, says cannot save entity without an ID.
+  project.save(); //Breaks If I try save, says cannot save entity without an ID.
 }
 
 export function handleProposalCooldown(event: ProposalCooldown): void {
   let projectId = event.params.proposalId;
   let project = Project.load(projectId.toString());
-  // if (project != null) {
-  //   log.critical(
-  //     "Critical - THIS SHOULD NOT HAPPEN, project #{} doesn't exist even though it should.",
-  //     [projectId.toString()]
-  //   );
-  // }
+
   project.projectState = "Cooldown";
-  //project.save();
+  project.save();
 }
 
 export function handleProposalWithdrawn(event: ProposalWithdrawn): void {
   let projectId = event.params.proposalId;
   let project = Project.load(projectId.toString());
-  // if (project != null) {
-  //   log.critical(
-  //     "Critical - THIS SHOULD NOT HAPPEN, project #{} doesn't exist even though it should.",
-  //     [projectId.toString()]
-  //   );
-  // }
+
   project.projectState = "Withdrawn";
-  //project.save();
+  project.save();
 }
