@@ -44,4 +44,8 @@ type VoteManager @entity {
   currentIteration: Iteration!
   latestCompleteIteration: Iteration
   totalDeposited: BigInt!
+  totalDepositedUsers: BigInt!
+  totalDepositedProjects: BigInt!
+  numberOfUsers: BigInt!
+  numberOfProjects: BigInt!
 }

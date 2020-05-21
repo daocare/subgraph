@@ -37,6 +37,10 @@ export function handleIterationChanged(event: IterationChanged): void {
     let voteManager = new VoteManager(VOTES_MANAGER_ENTITY_ID);
     voteManager.currentIteration = iteration.id;
     voteManager.totalDeposited = BigInt.fromI32(0);
+    voteManager.totalDepositedUsers = BigInt.fromI32(0);
+    voteManager.totalDepositedProjects = BigInt.fromI32(0);
+    voteManager.numberOfUsers = BigInt.fromI32(0);
+    voteManager.numberOfProjects = BigInt.fromI32(0);
     iteration.save();
     voteManager.save();
     return;
