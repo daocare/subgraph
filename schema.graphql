@@ -1,6 +1,6 @@
 type Project @entity {
   id: ID! #<projectId>
-  benefactor: Bytes!
+  benefactor: User!
   projectDataIdentifier: String!
   projectState: String!
   projectVoteResults: [VoteStatus!]
@@ -10,8 +10,8 @@ type User @entity {
   id: ID! #<usersAddress>
   amount: BigInt!
   timeJoined: [BigInt!]! # so we can see a history of when they joined and left and if they joined again
-  #timeJoined: BigInt!
   votes: [Vote!]
+  projects: [Project!] # If empty this user has no project. They can have multiple projects, but only one active.
 }
 
 type VoteStatus @entity {

@@ -25,6 +25,7 @@ export function handleDepositAdded(event: DepositAdded): void {
     user = new User(userAddress);
     user.timeJoined = [timeStamp];
     user.votes = [];
+    user.projects = [];
   } else {
     user.timeJoined = user.timeJoined.concat([timeStamp]);
   }
@@ -33,6 +34,7 @@ export function handleDepositAdded(event: DepositAdded): void {
     amountDeposit
   );
   voteManager.totalDeposited = voteManager.totalDeposited.plus(amountDeposit);
+  voteManager.numberOfUsers = voteManager.numberOfUsers.plus(BigInt.fromI32(1));
 
   user.amount = amountDeposit;
   user.save();
@@ -49,6 +51,9 @@ export function handleDepositWithdrawn(event: DepositWithdrawn): void {
     user.amount
   );
   voteManager.totalDeposited = voteManager.totalDeposited.minus(user.amount);
+  voteManager.numberOfUsers = voteManager.numberOfUsers.minus(
+    BigInt.fromI32(1)
+  );
 
   user.amount = BigInt.fromI32(0);
   user.timeJoined = user.timeJoined.concat([timeStamp]);
@@ -61,9 +66,10 @@ export function handleProposalAdded(event: ProposalAdded): void {
   let projectId = event.params.proposalId;
   let benefactor = event.params.benefactor;
   let projectDataIdentifier = event.params.proposalIdentifier.toString();
+  let timeStamp = event.block.timestamp;
 
-  let voteManagerContract = PoolDeposits.bind(event.address);
-  let proposalAmount = voteManagerContract.proposalAmount();
+  let poolDepositsContract = PoolDeposits.bind(event.address);
+  let proposalAmount = poolDepositsContract.proposalAmount();
 
   // handle and add to the total deposited.
   let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
@@ -71,15 +77,32 @@ export function handleProposalAdded(event: ProposalAdded): void {
   voteManager.totalDepositedProjects = voteManager.totalDepositedProjects.plus(
     proposalAmount
   );
+  voteManager.numberOfProjects = voteManager.numberOfProjects.plus(
+    BigInt.fromI32(1)
+  );
+
+  let user = User.load(benefactor.toHexString());
+  if (user == null) {
+    user = new User(benefactor.toHexString());
+    user.timeJoined = [timeStamp];
+    user.votes = [];
+    user.projects = [];
+  } else {
+    user.timeJoined = user.timeJoined.concat([timeStamp]);
+  }
 
   // Perform logic and updates
   let newProject = new Project(projectId.toString());
-  newProject.benefactor = benefactor;
+  newProject.benefactor = user.id;
   newProject.projectDataIdentifier = projectDataIdentifier;
   newProject.projectState = "Active";
   newProject.projectVoteResults = [];
 
+  user.projects = user.projects.concat([newProject.id]);
+  user.amount = proposalAmount;
+
   // Save results
+  user.save();
   newProject.save();
   voteManager.save();
 }
@@ -105,14 +128,17 @@ export function handleProposalWithdrawn(event: ProposalWithdrawn): void {
   // contract which should set the projectState to Withdrawn.
   // remove deposit from total deposited here
   let proposalAddress = event.params.benefactor;
-  let voteManagerContract = PoolDeposits.bind(event.address);
-  let proposalAmount = voteManagerContract.depositedDai(proposalAddress);
+  let poolDepositsContract = PoolDeposits.bind(event.address);
+  let proposalAmount = poolDepositsContract.depositedDai(proposalAddress);
 
   // handle and add to the total deposited.
   let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
   voteManager.totalDeposited = voteManager.totalDeposited.minus(proposalAmount);
   voteManager.totalDepositedProjects = voteManager.totalDepositedProjects.minus(
     proposalAmount
+  );
+  voteManager.numberOfProjects = voteManager.numberOfProjects.minus(
+    BigInt.fromI32(1)
   );
 
   voteManager.save();
