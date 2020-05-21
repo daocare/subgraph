@@ -4,12 +4,14 @@ type Project @entity {
   projectDataIdentifier: String!
   projectState: String!
   projectVoteResults: [VoteStatus!]
+  iterationsWon: [Iteration!]
 }
 
 type User @entity {
   id: ID! #<usersAddress>
   amount: BigInt!
-  timeJoined: [BigInt!]! # so we can see a history of when they joined and left and if they joined again
+  timeJoinedLeft: [BigInt!]! # so we can see a history of when they joined and left and if they joined again
+  iterationJoinedLeft: [Iteration!]! # if user joins and leaves in the same iteration, won't be appended again it seems
   votes: [Vote!]
   projects: [Project!] # If empty this user has no project. They can have multiple projects, but only one active.
 }
@@ -35,6 +37,9 @@ type Iteration @entity {
   fundsDistributed: BigInt!
   winningVotes: BigInt!
   interestDistribution: [BigInt!]
+  iterationStartTimestamp: BigInt!
+  iterationEndTimestamp: BigInt
+  minerAddress: Bytes
 }
 
 # add total deposited and other stats

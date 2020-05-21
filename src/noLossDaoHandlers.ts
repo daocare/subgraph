@@ -23,6 +23,7 @@ export function handleIterationChanged(event: IterationChanged): void {
   // Load Variables
   let nextIterationId = event.params.newIterationId;
   let miner = event.params.miner;
+  let timeStamp = event.block.timestamp;
 
   let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
   if (voteManager == null) {
@@ -33,6 +34,7 @@ export function handleIterationChanged(event: IterationChanged): void {
     iteration.projectVoteTallies = [];
     iteration.individualVotes = [];
     iteration.interestDistribution = [];
+    iteration.iterationStartTimestamp = timeStamp;
 
     let voteManager = new VoteManager(VOTES_MANAGER_ENTITY_ID);
     voteManager.currentIteration = iteration.id;
@@ -48,6 +50,9 @@ export function handleIterationChanged(event: IterationChanged): void {
 
   let completeIteration = Iteration.load(voteManager.currentIteration);
   voteManager.latestCompleteIteration = completeIteration.id;
+  completeIteration.iterationEndTimestamp = timeStamp;
+  completeIteration.minerAddress = miner;
+  completeIteration.save();
 
   let currentIteration = new Iteration(nextIterationId.toString());
   currentIteration.totalVotes = BigInt.fromI32(0);
@@ -56,6 +61,7 @@ export function handleIterationChanged(event: IterationChanged): void {
   currentIteration.projectVoteTallies = [];
   currentIteration.individualVotes = [];
   currentIteration.interestDistribution = [];
+  currentIteration.iterationStartTimestamp = timeStamp;
   currentIteration.save();
 
   voteManager.currentIteration = currentIteration.id;
@@ -76,7 +82,13 @@ export function handleIterationWinner(event: IterationWinner): void {
   previousIteration.winningProposal = topProject.toString();
   previousIteration.winningVotes = winner.projectVote;
 
+  let project = Project.load(topProject.toString());
+  project.iterationsWon = project.iterationsWon.concat([
+    voteManager.currentIteration,
+  ]);
+
   // Save results
+  project.save();
   previousIteration.save();
 }
 
