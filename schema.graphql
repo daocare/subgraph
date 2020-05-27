@@ -14,6 +14,7 @@ type User @entity {
   iterationJoinedLeft: [Iteration!]! # if user joins and leaves in the same iteration, won't be appended again it seems
   votes: [Vote!]
   projects: [Project!] # If empty this user has no project. They can have multiple projects, but only one active.
+  proxyAddress: Bytes
 }
 
 type VoteStatus @entity {

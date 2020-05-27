@@ -92,7 +92,15 @@ export function handleIterationWinner(event: IterationWinner): void {
   previousIteration.save();
 }
 
-export function handleVoteDelegated(event: VoteDelegated): void {}
+export function handleVoteDelegated(event: VoteDelegated): void {
+  let userAddress = event.params.user;
+  let proxyAddress = event.params.delegatedTo;
+
+  let user = User.load(userAddress.toHexString());
+
+  user.proxyAddress = proxyAddress;
+  user.save();
+}
 
 export function handleVotedDirect(event: VotedDirect): void {
   let voter = event.params.user;
