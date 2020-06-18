@@ -35,6 +35,7 @@ type Iteration @entity {
   individualVotes: [Vote!]
   totalVotes: BigInt!
   winningProposal: Project # there might not be a winning proposal (iteration 0)
+  payoutAmountForWinnerOfPreviousIteration: BigInt # this is amount is only known at end of iteration
   fundsDistributed: BigInt!
   winningVotes: BigInt!
   interestDistribution: [BigInt!]

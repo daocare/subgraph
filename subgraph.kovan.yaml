@@ -4,9 +4,9 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: PoolDeposits
-    network: mainnet
+    network: kovan
     source:
-      address: "0x46441594290FC13e97dD2E2A9Cf49E114599bc38"
+      address: "0xc4DA2De9eAA62cEE78E56e4772847Ab516DE011e"
       abi: PoolDeposits
     mapping:
       kind: ethereum/events
@@ -52,9 +52,9 @@ dataSources:
 
   - kind: ethereum/contract
     name: NoLossDao
-    network: mainnet
+    network: kovan
     source:
-      address: "0xAc523606b34240A1d6C90CF1223f1B75136a14D1"
+      address: "0x85A001C34E382457562f7cb5d0A71eE6cC65C650"
       abi: NoLossDao
     mapping:
       kind: ethereum/events

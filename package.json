@@ -4,7 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
+    "build-kovan": "graph build ./subgraph.kovan.yaml",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ daocare/daocare_graph",
+    "deploy-kovan": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ daocare/daocare_kovan_soldityv6 ./subgraph.kovan.yaml",
+    "deploy-mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ daocare/daocare-mainnet",
     "create-local": "graph create --node http://localhost:8020/ daocare/daocare_graph",
     "remove-local": "graph remove --node http://localhost:8020/ daocare/daocare_graph",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 daocare/daocare_graph"

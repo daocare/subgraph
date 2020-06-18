@@ -9,6 +9,8 @@ import {
   RemoveEmergencyVote,
   InterestSent,
   PoolDeposits,
+  PartialDepositWithdrawn,
+  WinnerPayout,
 } from "../generated/PoolDeposits/PoolDeposits";
 import { BigInt, Address, log } from "@graphprotocol/graph-ts";
 import { Project, User, VoteManager, Iteration } from "../generated/schema";
@@ -24,10 +26,14 @@ export function handleDepositAdded(event: DepositAdded): void {
   let user = User.load(userAddress);
   if (user == null) {
     user = new User(userAddress);
+    user.amount = BigInt.fromI32(0);
     user.timeJoinedLeft = [timeStamp];
     user.iterationJoinedLeft = [voteManager.currentIteration];
     user.votes = [];
     user.projects = [];
+    voteManager.numberOfUsers = voteManager.numberOfUsers.plus(
+      BigInt.fromI32(1)
+    ); ///TODO fix: this won't count them if they exit completely and come back in
   } else {
     user.timeJoinedLeft = user.timeJoinedLeft.concat([timeStamp]);
     user.iterationJoinedLeft = user.iterationJoinedLeft.concat([
@@ -38,9 +44,8 @@ export function handleDepositAdded(event: DepositAdded): void {
     amountDeposit
   );
   voteManager.totalDeposited = voteManager.totalDeposited.plus(amountDeposit);
-  voteManager.numberOfUsers = voteManager.numberOfUsers.plus(BigInt.fromI32(1));
 
-  user.amount = amountDeposit;
+  user.amount = user.amount.plus(amountDeposit);
   user.save();
   voteManager.save();
 }
@@ -60,6 +65,33 @@ export function handleDepositWithdrawn(event: DepositWithdrawn): void {
   );
 
   user.amount = BigInt.fromI32(0);
+  user.timeJoinedLeft = user.timeJoinedLeft.concat([timeStamp]);
+  user.iterationJoinedLeft = user.iterationJoinedLeft.concat([
+    voteManager.currentIteration,
+  ]);
+
+  user.save();
+  voteManager.save();
+}
+
+export function handlePartialDepositWithdrawn(
+  event: PartialDepositWithdrawn
+): void {
+  let userAddress = event.params.user.toHexString();
+  let amount = event.params.amount;
+  let user = User.load(userAddress);
+  let timeStamp = event.block.timestamp;
+
+  let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
+  voteManager.totalDepositedUsers = voteManager.totalDepositedUsers.minus(
+    amount
+  );
+  voteManager.totalDeposited = voteManager.totalDeposited.minus(amount);
+  // voteManager.numberOfUsers = voteManager.numberOfUsers.minus(
+  //   BigInt.fromI32(1)
+  // );
+
+  user.amount = user.amount.minus(amount);
   user.timeJoinedLeft = user.timeJoinedLeft.concat([timeStamp]);
   user.iterationJoinedLeft = user.iterationJoinedLeft.concat([
     voteManager.currentIteration,
@@ -154,16 +186,34 @@ export function handleInterestSent(event: InterestSent): void {
   // Load Variables
   let address = event.params.user;
   let amount = event.params.amount;
-  let iterationNo = event.params.iteration.toString();
+  //let iterationNo = event.params.iteration.toString();
 
-  //let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
-  let iteration = Iteration.load(iterationNo);
+  let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
+
+  let iteration = Iteration.load(voteManager.currentIteration);
 
   iteration.interestDistribution = iteration.interestDistribution.concat([
     amount,
   ]);
   iteration.fundsDistributed = iteration.fundsDistributed.plus(amount);
+  iteration.save();
+}
 
+export function handleWinnerPayout(event: WinnerPayout): void {
+  // Load Variables
+  let address = event.params.user;
+  let amount = event.params.amount;
+  let iterationNo = event.params.iteration.toString();
+
+  let user = User.load(address.toHexString());
+
+  let iteration = Iteration.load(iterationNo);
+
+  iteration.interestDistribution = iteration.interestDistribution.concat([
+    amount,
+  ]);
+  iteration.payoutAmountForWinnerOfPreviousIteration = amount;
+  iteration.fundsDistributed = iteration.fundsDistributed.plus(amount);
   iteration.save();
 }
 
