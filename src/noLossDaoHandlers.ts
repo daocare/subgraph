@@ -31,6 +31,7 @@ export function handleIterationChanged(event: IterationChanged): void {
     iteration.totalVotes = BigInt.fromI32(0);
     iteration.fundsDistributed = BigInt.fromI32(0);
     iteration.winningVotes = BigInt.fromI32(0);
+    iteration.iterationNumber = BigInt.fromI32(0);
     iteration.projectVoteTallies = [];
     iteration.individualVotes = [];
     iteration.interestDistribution = [];
@@ -58,6 +59,7 @@ export function handleIterationChanged(event: IterationChanged): void {
   currentIteration.totalVotes = BigInt.fromI32(0);
   currentIteration.fundsDistributed = BigInt.fromI32(0);
   currentIteration.winningVotes = BigInt.fromI32(0);
+  currentIteration.iterationNumber = completeIteration.iterationNumber.plus(BigInt.fromI32(1));
   currentIteration.projectVoteTallies = [];
   currentIteration.individualVotes = [];
   currentIteration.interestDistribution = [];
@@ -110,6 +112,9 @@ export function handleVotedDirect(event: VotedDirect): void {
   let voteStatusId = iterationNo + "-" + proposalId.toString();
   let uniqueVoteId =
     iterationNo + "-" + proposalId.toString() + "-" + voter.toHexString();
+  
+  let timeStamp = event.block.timestamp;
+
 
   let currentIteration = Iteration.load(iterationNo);
   let user = User.load(voter.toHexString());
@@ -117,7 +122,10 @@ export function handleVotedDirect(event: VotedDirect): void {
 
   newVote.voteAmount = user.amount;
   newVote.voter = user.id;
+  newVote.timestamp = timeStamp;
+  newVote.iterationOfVote = iterationNo;
   user.votes = user.votes.concat([uniqueVoteId]);
+  user.lastIterationVoted = currentIteration.iterationNumber;
   currentIteration.individualVotes = currentIteration.individualVotes.concat([
     uniqueVoteId,
   ]);
@@ -128,6 +136,7 @@ export function handleVotedDirect(event: VotedDirect): void {
   if (voteStatus == null) {
     voteStatus = new VoteStatus(voteStatusId);
     voteStatus.projectVote = user.amount;
+    voteStatus.iterationOfVoteTally = iterationNo;
     currentIteration.projectVoteTallies = currentIteration.projectVoteTallies.concat(
       [voteStatusId]
     );
@@ -164,8 +173,11 @@ export function handleVotedViaProxy(event: VotedViaProxy): void {
   newVote.voteAmount = user.amount;
   newVote.voter = user.id;
   newVote.proxyVoteAddress = proxy;
+  newVote.iterationOfVote = iterationNo;
+
 
   user.votes = user.votes.concat([uniqueVoteId]);
+  user.lastIterationVoted = currentIteration.iterationNumber;
   currentIteration.individualVotes = currentIteration.individualVotes.concat([
     uniqueVoteId,
   ]);
@@ -176,6 +188,7 @@ export function handleVotedViaProxy(event: VotedViaProxy): void {
   if (voteStatus == null) {
     voteStatus = new VoteStatus(voteStatusId);
     voteStatus.projectVote = user.amount;
+    voteStatus.iterationOfVoteTally = iterationNo;
     currentIteration.projectVoteTallies = currentIteration.projectVoteTallies.concat(
       [voteStatusId]
     );

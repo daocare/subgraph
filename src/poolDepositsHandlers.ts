@@ -33,19 +33,29 @@ export function handleDepositAdded(event: DepositAdded): void {
     user.projects = [];
     voteManager.numberOfUsers = voteManager.numberOfUsers.plus(
       BigInt.fromI32(1)
-    ); ///TODO fix: this won't count them if they exit completely and come back in
+    ); 
   } else {
-    user.timeJoinedLeft = user.timeJoinedLeft.concat([timeStamp]);
-    user.iterationJoinedLeft = user.iterationJoinedLeft.concat([
-      voteManager.currentIteration,
-    ]);
+    // If they are entering the pool, but have previously joined before(and exited completely)
+    if(user.amount == BigInt.fromI32(0)){
+      user.timeJoinedLeft = user.timeJoinedLeft.concat([timeStamp]);
+      user.iterationJoinedLeft = user.iterationJoinedLeft.concat([
+        voteManager.currentIteration,
+      ]);
+      voteManager.numberOfUsers = voteManager.numberOfUsers.plus(
+        BigInt.fromI32(1)
+      );
+    }
   }
+
   voteManager.totalDepositedUsers = voteManager.totalDepositedUsers.plus(
     amountDeposit
   );
   voteManager.totalDeposited = voteManager.totalDeposited.plus(amountDeposit);
 
+  let iteration = Iteration.load(voteManager.currentIteration);
+
   user.amount = user.amount.plus(amountDeposit);
+  user.nextIterationEligibleToVote = iteration.iterationNumber.plus(BigInt.fromI32(1));
   user.save();
   voteManager.save();
 }
@@ -80,22 +90,14 @@ export function handlePartialDepositWithdrawn(
   let userAddress = event.params.user.toHexString();
   let amount = event.params.amount;
   let user = User.load(userAddress);
-  let timeStamp = event.block.timestamp;
 
   let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
   voteManager.totalDepositedUsers = voteManager.totalDepositedUsers.minus(
     amount
   );
   voteManager.totalDeposited = voteManager.totalDeposited.minus(amount);
-  // voteManager.numberOfUsers = voteManager.numberOfUsers.minus(
-  //   BigInt.fromI32(1)
-  // );
 
   user.amount = user.amount.minus(amount);
-  user.timeJoinedLeft = user.timeJoinedLeft.concat([timeStamp]);
-  user.iterationJoinedLeft = user.iterationJoinedLeft.concat([
-    voteManager.currentIteration,
-  ]);
 
   user.save();
   voteManager.save();
@@ -128,6 +130,7 @@ export function handleProposalAdded(event: ProposalAdded): void {
     user.iterationJoinedLeft = [voteManager.currentIteration];
     user.votes = [];
     user.projects = [];
+    user.nextIterationEligibleToVote = BigInt.fromI32(0);
   } else {
     user.timeJoinedLeft = user.timeJoinedLeft.concat([timeStamp]);
     user.iterationJoinedLeft = user.iterationJoinedLeft.concat([
@@ -205,7 +208,7 @@ export function handleWinnerPayout(event: WinnerPayout): void {
   let amount = event.params.amount;
   let iterationNo = event.params.iteration.toString();
 
-  let user = User.load(address.toHexString());
+  //let user = User.load(address.toHexString());
 
   let iteration = Iteration.load(iterationNo);
 

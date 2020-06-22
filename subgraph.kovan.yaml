@@ -22,6 +22,8 @@ dataSources:
         - ProposalWithdrawn
         - RemoveEmergencyVote
         - InterestSent
+        - WinnerPayout
+        - PartialDepositWithdrawn
       abis:
         - name: PoolDeposits
           file: ./abis/PoolDeposits.json
