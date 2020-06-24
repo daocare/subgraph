@@ -59,7 +59,9 @@ export function handleIterationChanged(event: IterationChanged): void {
   currentIteration.totalVotes = BigInt.fromI32(0);
   currentIteration.fundsDistributed = BigInt.fromI32(0);
   currentIteration.winningVotes = BigInt.fromI32(0);
-  currentIteration.iterationNumber = completeIteration.iterationNumber.plus(BigInt.fromI32(1));
+  currentIteration.iterationNumber = completeIteration.iterationNumber.plus(
+    BigInt.fromI32(1)
+  );
   currentIteration.projectVoteTallies = [];
   currentIteration.individualVotes = [];
   currentIteration.interestDistribution = [];
@@ -112,9 +114,8 @@ export function handleVotedDirect(event: VotedDirect): void {
   let voteStatusId = iterationNo + "-" + proposalId.toString();
   let uniqueVoteId =
     iterationNo + "-" + proposalId.toString() + "-" + voter.toHexString();
-  
-  let timeStamp = event.block.timestamp;
 
+  let timeStamp = event.block.timestamp;
 
   let currentIteration = Iteration.load(iterationNo);
   let user = User.load(voter.toHexString());
@@ -174,7 +175,6 @@ export function handleVotedViaProxy(event: VotedViaProxy): void {
   newVote.voter = user.id;
   newVote.proxyVoteAddress = proxy;
   newVote.iterationOfVote = iterationNo;
-
 
   user.votes = user.votes.concat([uniqueVoteId]);
   user.lastIterationVoted = currentIteration.iterationNumber;

@@ -8,9 +8,11 @@ dataSources:
     source:
       address: "0xc4DA2De9eAA62cEE78E56e4772847Ab516DE011e"
       abi: PoolDeposits
+      startBlock: 19110000
+      #startBlock: 19114254
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - DepositAdded
@@ -56,11 +58,13 @@ dataSources:
     name: NoLossDao
     network: kovan
     source:
-      address: "0x85A001C34E382457562f7cb5d0A71eE6cC65C650"
+      address: "0xd5e1d6FC3395dF77105509Ca7123D84EFdc7B20d"
       abi: NoLossDao
+      startBlock: 19110000
+      #startBlock: 19114218
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - IterationChanged

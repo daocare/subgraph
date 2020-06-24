@@ -8,9 +8,10 @@ dataSources:
     source:
       address: "0x46441594290FC13e97dD2E2A9Cf49E114599bc38"
       abi: PoolDeposits
+      startBlock: 10000000
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - DepositAdded
@@ -58,9 +59,10 @@ dataSources:
     source:
       address: "0xAc523606b34240A1d6C90CF1223f1B75136a14D1"
       abi: NoLossDao
+      startBlock: 10000000
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - IterationChanged

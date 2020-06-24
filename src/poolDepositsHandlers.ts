@@ -22,9 +22,11 @@ export function handleDepositAdded(event: DepositAdded): void {
   let amountDeposit = event.params.amount;
   let timeStamp = event.block.timestamp;
   let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
+  let iteration = Iteration.load(voteManager.currentIteration);
 
   let user = User.load(userAddress);
   if (user == null) {
+    // Case if they are first time user
     user = new User(userAddress);
     user.amount = BigInt.fromI32(0);
     user.timeJoinedLeft = [timeStamp];
@@ -33,10 +35,10 @@ export function handleDepositAdded(event: DepositAdded): void {
     user.projects = [];
     voteManager.numberOfUsers = voteManager.numberOfUsers.plus(
       BigInt.fromI32(1)
-    ); 
+    );
   } else {
-    // If they are entering the pool, but have previously joined before(and exited completely)
-    if(user.amount == BigInt.fromI32(0)){
+    // If they are a returning user who currently has zero funds
+    if (user.amount == BigInt.fromI32(0)) {
       user.timeJoinedLeft = user.timeJoinedLeft.concat([timeStamp]);
       user.iterationJoinedLeft = user.iterationJoinedLeft.concat([
         voteManager.currentIteration,
@@ -47,15 +49,16 @@ export function handleDepositAdded(event: DepositAdded): void {
     }
   }
 
+  user.amount = user.amount.plus(amountDeposit);
+  user.nextIterationEligibleToVote = iteration.iterationNumber.plus(
+    BigInt.fromI32(1)
+  );
+
   voteManager.totalDepositedUsers = voteManager.totalDepositedUsers.plus(
     amountDeposit
   );
   voteManager.totalDeposited = voteManager.totalDeposited.plus(amountDeposit);
 
-  let iteration = Iteration.load(voteManager.currentIteration);
-
-  user.amount = user.amount.plus(amountDeposit);
-  user.nextIterationEligibleToVote = iteration.iterationNumber.plus(BigInt.fromI32(1));
   user.save();
   voteManager.save();
 }
