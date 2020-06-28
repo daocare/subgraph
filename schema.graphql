@@ -7,19 +7,39 @@ type Project @entity {
   iterationsWon: [Iteration!]
 }
 
+# Future idea
+# interface DepositManipulation {
+#   id: ID!
+#   type: 4
+#   time: BigInt!
+#   iteration: BigInt!
+#   amount: BigInt!
+#   depositBefore:
+#   depositAfter:
+# }
+# type Single implements Status @entity {
+#   id: ID!,
+#   last_partner: Person
+# }
+
 type User @entity {
   id: ID! #<usersAddress>
   amount: BigInt!
+  # fix the logic for the below.
   timeJoinedLeft: [BigInt!]! # so we can see a history of when they joined and left and if they joined again
   iterationJoinedLeft: [Iteration!]! # if user joins and leaves in the same iteration, won't be appended again it seems
   votes: [Vote!]
   projects: [Project!] # If empty this user has no project. They can have multiple projects, but only one active.
   proxyAddress: Bytes
+  nextIterationEligibleToVote: BigInt! # 0 if proposal or currently never eligible to vote
+  lastIterationVoted: BigInt
 }
 
+# VoteTallies
 type VoteStatus @entity {
   id: ID! # <iteration>-<projectId>
   projectVote: BigInt!
+  iterationOfVoteTally: Iteration!
 }
 
 type Vote @entity {
@@ -27,14 +47,18 @@ type Vote @entity {
   voteAmount: BigInt!
   voter: User!
   proxyVoteAddress: Bytes
+  timestamp: BigInt!
+  iterationOfVote: Iteration!
 }
 
 type Iteration @entity {
   id: ID! # <iteration>
+  iterationNumber: BigInt!
   projectVoteTallies: [VoteStatus!]
   individualVotes: [Vote!]
   totalVotes: BigInt!
   winningProposal: Project # there might not be a winning proposal (iteration 0)
+  payoutAmountForWinnerOfPreviousIteration: BigInt # this is amount is only known at end of iteration
   fundsDistributed: BigInt!
   winningVotes: BigInt!
   interestDistribution: [BigInt!]

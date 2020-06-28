@@ -213,7 +213,6 @@
     "type": "event"
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "admin",
     "outputs": [
@@ -223,12 +222,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -244,12 +242,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "depositContract",
     "outputs": [
@@ -259,12 +256,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -280,12 +276,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "proposalDeadline",
     "outputs": [
@@ -295,12 +290,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "proposalId",
     "outputs": [
@@ -310,12 +304,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -331,12 +324,11 @@
         "type": "string"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "proposalIteration",
     "outputs": [
@@ -346,12 +338,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -367,12 +358,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -393,12 +383,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -414,12 +403,11 @@
         "type": "uint8"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -435,12 +423,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -461,12 +448,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -482,12 +468,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "votingInterval",
     "outputs": [
@@ -497,12 +482,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "address",
@@ -513,16 +497,19 @@
         "internalType": "uint256",
         "name": "_votingInterval",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_lengthOfIterationZero",
+        "type": "uint256"
       }
     ],
     "name": "initialize",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -532,12 +519,10 @@
     ],
     "name": "changeVotingInterval",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -547,12 +532,10 @@
     ],
     "name": "changeProposalStakingAmount",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "address[]",
@@ -567,12 +550,30 @@
     ],
     "name": "setInterestReceivers",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      }
+    ],
+    "name": "userHasNotVotedThisIterationAndIsNotProposal",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -588,12 +589,10 @@
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "address",
@@ -609,12 +608,10 @@
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "string",
@@ -635,12 +632,10 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "address",
@@ -656,12 +651,10 @@
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "address",
@@ -671,12 +664,10 @@
     ],
     "name": "delegateVoting",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -686,12 +677,10 @@
     ],
     "name": "voteDirect",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -706,16 +695,13 @@
     ],
     "name": "voteProxy",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [],
     "name": "distributeFunds",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   }

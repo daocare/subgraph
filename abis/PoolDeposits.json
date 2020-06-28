@@ -27,9 +27,14 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "ADaiRedeemFailed",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -140,15 +145,28 @@
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
+      }
+    ],
+    "name": "InterestSent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "iteration",
+        "name": "amount",
         "type": "uint256"
       }
     ],
-    "name": "InterestSent",
+    "name": "PartialDepositWithdrawn",
     "type": "event"
   },
   {
@@ -209,7 +227,31 @@
     "type": "event"
   },
   {
-    "constant": true,
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "iteration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "WinnerPayout",
+    "type": "event"
+  },
+  {
     "inputs": [],
     "name": "aaveLendingContract",
     "outputs": [
@@ -219,12 +261,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "aaveLendingContractCore",
     "outputs": [
@@ -234,12 +275,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "adaiContract",
     "outputs": [
@@ -249,12 +289,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "admin",
     "outputs": [
@@ -264,12 +303,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "daiContract",
     "outputs": [
@@ -279,12 +317,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -300,12 +337,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "emergencyVoteAmount",
     "outputs": [
@@ -315,12 +351,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -336,12 +371,11 @@
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "isEmergencyState",
     "outputs": [
@@ -351,12 +385,11 @@
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "noLossDaoContract",
     "outputs": [
@@ -366,12 +399,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "proposalAmount",
     "outputs": [
@@ -381,12 +413,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "provider",
     "outputs": [
@@ -396,12 +427,11 @@
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -417,12 +447,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "totalDepositedDai",
     "outputs": [
@@ -432,12 +461,11 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -447,12 +475,23 @@
     ],
     "name": "changeProposalAmount",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newAdmin",
+        "type": "address"
+      }
+    ],
+    "name": "changeAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -462,21 +501,30 @@
     ],
     "name": "deposit",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [],
+    "name": "exit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
     "name": "withdrawDeposit",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "string",
@@ -492,21 +540,17 @@
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [],
     "name": "withdrawProposal",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "address[]",
@@ -531,34 +575,34 @@
     ],
     "name": "distributeInterest",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "inputs": [],
+    "name": "adminActivateEmergency",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "declareStateOfEmergency",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [],
     "name": "emergencyWithdraw",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [],
     "name": "voteEmergency",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   }
