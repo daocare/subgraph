@@ -214,6 +214,12 @@ export function handleWinnerPayout(event: WinnerPayout): void {
   //let user = User.load(address.toHexString());
 
   let iteration = Iteration.load(iterationNo);
+  if (iteration == null) {
+    log.critical(
+      "The iteration is null, but it should be defined! #iteration={}",
+      [iterationNo]
+    );
+  }
 
   iteration.interestDistribution = iteration.interestDistribution.concat([
     amount,

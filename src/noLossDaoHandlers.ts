@@ -6,6 +6,7 @@ import {
   VotedViaProxy,
   ProposalActive,
   ProposalCooldown,
+  NoLossDao,
   ProposalWithdrawn,
 } from "../generated/NoLossDao/NoLossDao";
 import {
@@ -24,6 +25,7 @@ export function handleIterationChanged(event: IterationChanged): void {
   let nextIterationId = event.params.newIterationId;
   let miner = event.params.miner;
   let timeStamp = event.block.timestamp;
+  let noLossDao = NoLossDao.bind(event.address);
 
   let voteManager = VoteManager.load(VOTES_MANAGER_ENTITY_ID);
   if (voteManager == null) {
@@ -36,6 +38,7 @@ export function handleIterationChanged(event: IterationChanged): void {
     iteration.individualVotes = [];
     iteration.interestDistribution = [];
     iteration.iterationStartTimestamp = timeStamp;
+    iteration.proposalDeadline = noLossDao.proposalDeadline();
 
     let voteManager = new VoteManager(VOTES_MANAGER_ENTITY_ID);
     voteManager.currentIteration = iteration.id;
@@ -44,8 +47,11 @@ export function handleIterationChanged(event: IterationChanged): void {
     voteManager.totalDepositedProjects = BigInt.fromI32(0);
     voteManager.numberOfUsers = BigInt.fromI32(0);
     voteManager.numberOfProjects = BigInt.fromI32(0);
+    voteManager.votingInterval = noLossDao.votingInterval();
+
     iteration.save();
     voteManager.save();
+
     return;
   }
 
@@ -59,6 +65,7 @@ export function handleIterationChanged(event: IterationChanged): void {
   currentIteration.totalVotes = BigInt.fromI32(0);
   currentIteration.fundsDistributed = BigInt.fromI32(0);
   currentIteration.winningVotes = BigInt.fromI32(0);
+  currentIteration.proposalDeadline = noLossDao.proposalDeadline();
   currentIteration.iterationNumber = completeIteration.iterationNumber.plus(
     BigInt.fromI32(1)
   );
